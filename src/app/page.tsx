@@ -6,13 +6,16 @@ import MenuList from "./components/MenuList";
 import Cart from "./components/Cart";
 import { useCart } from "./components/CartContext";
 import Link from "next/link";
-
+import { useRouter } from "next/navigation";
 export default function Home() {
+  const router = useRouter();
   const { cart, setCart } = useCart(); // Use the shared cart
   const [search, setSearch] = useState("");
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const handleClick = () => {
+    router.push("/cart"); // Navigate to /cart
+  };
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -64,10 +67,7 @@ export default function Home() {
         )}
       </div>
 
-      {/* Floating Cart. Now it has a Link to /cart */}
-      <Cart cart={cart} products={products}>
-        <Link href="/cart"></Link>
-      </Cart>
+      <Cart cart={cart} products={products} onClick={handleClick} />
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { ShoppingCart } from "lucide-react";
 interface Props {
   cart: { [key: number]: number };
   products: Product[];
+  onClick: () => void;
 }
 
 export default function FloatingCartButton({ cart, products }: Props) {
