@@ -4,9 +4,11 @@ import { getMockProducts } from "./api/getMockProducts";
 import { Product } from "./types";
 import MenuList from "./components/MenuList";
 import Cart from "./components/Cart";
+import { useCart } from "./components/CartContext";
+import Link from "next/link";
 
 export default function Home() {
-  const [cart, setCart] = useState<{ [key: number]: number }>({});
+  const { cart, setCart } = useCart(); // Use the shared cart
   const [search, setSearch] = useState("");
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -61,7 +63,11 @@ export default function Home() {
           />
         )}
       </div>
-      <Cart cart={cart} products={products} />
+
+      {/* Floating Cart. Now it has a Link to /cart */}
+      <Cart cart={cart} products={products}>
+        <Link href="/cart"></Link>
+      </Cart>
     </div>
   );
 }

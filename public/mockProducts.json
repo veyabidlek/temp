@@ -4,24 +4,28 @@
       "product_id": 1,
       "product_name": "Рисовая каша с ягодами",
       "price": 2500,
+      "description": "Very tasty",
       "photo": "https://eda.ru/images/RecipePhoto/390x390/klassicheskaya-risovaya-kasha_137185_photo_152419.jpg"
     },
     {
       "product_id": 2,
       "product_name": "Авокадо тост с лососем",
       "price": 5400,
+      "description": "Poidet",
       "photo": "https://s1.eda.ru/StaticContent/Photos/b/f1/bf1c9134b9254c1682cd66ad0cbfd4ef.jpg"
     },
     {
       "product_id": 3,
       "product_name": "Бенедикт с лососем",
       "price": 3600,
+      "description": "Vkusno",
       "photo": "https://eda.ru/images/RecipeOpenGraph/1200x630/benedikt-s-lososem_104301_ogimage.jpg"
     },
     {
       "product_id": 4,
       "product_name": "Домашние блинчики с мясом",
       "price": 2100,
+      "description": "Guzel",
       "photo": "https://eda.ru/images/RecipeOpenGraph/1200x630/domashnie-blinchiki-s-farshem_152036_ogimage.jpg"
     }
   ]
