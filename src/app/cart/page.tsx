@@ -51,10 +51,14 @@ export default function CartPage() {
   const handleOrderAll = async () => {
     try {
       await handleOrder(cart, products);
-      alert("Order placed successfully!");
+      alert("Заказ успешно оформлен!");
+      setCart({}); // Optional: clear cart after successful order
     } catch (error) {
-      console.error("Error placing order:", error);
-      alert("Failed to place order. Server might be down.");
+      if (error instanceof Error) {
+        alert(error.message);
+      } else {
+        alert("Произошла неизвестная ошибка");
+      }
     }
   };
 

@@ -1,11 +1,10 @@
-// postOrder.ts
+import axios from "axios";
 import { Product } from "../types";
 
 export async function handleOrder(
   cart: { [key: number]: number },
   products: Product[]
 ) {
-  // Build array of products with counts
   const productsToOrder = Object.entries(cart).map(([id, count]) => {
     const found = products.find((p) => p.product_id === Number(id));
     return {
@@ -22,19 +21,33 @@ export async function handleOrder(
     products: productsToOrder,
   };
 
-  // Attempt a real fetch, or just throw an error
-  // so that we see "Failed to place order" alert.
-  const response = await fetch("http://localhost:8080/order", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(orderData),
-  });
+  try {
+    const response = await axios.post(
+      `${process.env.BACKEND_URL}/order`,
+      orderData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-  if (!response.ok) {
-    throw new Error(`Server responded with ${response.status}`);
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response) {
+        // Server responded with error
+        throw new Error(`Ошибка сервера: ${error.response.status}`);
+      } else if (error.request) {
+        // Request made but no response
+        throw new Error("Сервер не отвечает. Попробуйте позже.");
+      } else {
+        // Error setting up request
+        throw new Error(`Ошибка: ${error.message}`);
+      }
+    } else {
+      // Non-axios error
+      throw new Error("Произошла неизвестная ошибка");
+    }
   }
-
-  return await response.json();
 }
